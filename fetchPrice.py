@@ -1,4 +1,5 @@
 from exchangeratesapi import Api
+from datetime import datetime
 
 
 class fetchPrice:
@@ -8,7 +9,7 @@ class fetchPrice:
         Callan Duffy
     param:
         doesnt require anything but can use dates if required.
-        dates must be added as "yyyy-mm-dd"
+        dates must be added as "yyyy-mm-dd", this is to keep the format friendly for python dictionary
     return:
         can either return a couple or a numpy array depending on what is asked.
     """
@@ -30,4 +31,9 @@ class fetchPrice:
         self.usd = self.content['rates']['USD']
 
     def get_data(self, start, end):
+        # returns a dictionary so wont be on a sorted order
         return self.api.get_rates('GBP', ['USD', 'EUR'], start, end)
+
+    def get_more(self, currencies, start, end):
+        # currencies is a list of currencies that the user wants the data for.
+        return self.api.get_rates('GBP', currencies, start, end)
